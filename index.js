@@ -10,7 +10,7 @@ function nextSequence() {
   var randomNumber = Math.floor(Math.random() * 4);
   var randomColor = btnColors[randomNumber];
   gamePattern.push(randomColor);
-  $(".btn #" + randomColor).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
+  $("#" + randomColor).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
   playSound(randomColor);
 }
 
@@ -59,19 +59,22 @@ function checkAnswer(currentLevel) {
 
     }
   } else {
+
     playSound("wrong");
     $("body").addClass("game-over");
-    if (window.matchMedia("(max-width: 720px)").matches) {
+    setTimeout(function() {
+      $("body").removeClass("game-over");
+    }, 200);
+
+    if (window.matchMedia("(max-width: 1080px)").matches) {
       $("h1").html("Game Over, Tap anywhere to Restart");
-      $("html").one("click", function() {
-        nextSequence();
-        console.log("Mobile Started.");
-      });
+      setTimeout(function() {
+        restartGame("click");
+        console.log("Mobile game Stopped.");
+      }, 1000);
+
     } else {
       $("h1").html("Game Over, Press any Key to Restart");
-      setTimeout(function() {
-        $("body").removeClass("game-over");
-      }, 200);
       restartGame("keydown");
       console.log("Desktop Started.");
     }
