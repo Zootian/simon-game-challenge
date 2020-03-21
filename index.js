@@ -1,9 +1,7 @@
-var btnColors = ["red","blue","green","yellow"]
-
-var gamePattern = [];
-var userPattern = [];
-
-var level = 0;
+var btnColors = ["red","blue","green","yellow"],
+    gamePattern = [],
+    userPattern = [],
+    level = 0;
 
 function nextSequence() {
   userPattern = [];
@@ -38,15 +36,16 @@ $(".btn").click(function(){
 });
 
 // https://www.mydevice.io/#compare-devices
-  if(window.matchMedia("(max-width: 720px)").matches){
+  if(window.matchMedia("(max-width: 1080px)").matches){
+    $("h1").html("Tap anywhere to start.");
     $("html").one("click", function(){
       nextSequence();
-      console.log("Mobile Started.")
+      console.log("Mobile Started.");
     });
   } else {
     $("html").one("keydown", function(){
       nextSequence();
-      console.log("Desktop Started.")
+      console.log("Desktop Started.");
     });
   }
 
@@ -62,12 +61,24 @@ function checkAnswer(currentLevel) {
   } else {
     playSound("wrong");
     $("body").addClass("game-over");
-    $("h1").html("Game Over, Press any Key to Restart");
+    if(window.matchMedia("(max-width: 1080px)").matches){
+      $("h1").html("Game Over, Tap anywhere to Restart");
+      $("html").one("click", function(){
+        nextSequence();
+        console.log("Mobile Started.");
+      });
+    } else {
+      $("h1").html("Game Over, Press any Key to Restart");
+      setTimeout(function(){
+        $("body").removeClass("game-over");
+      }, 200);
+      restartGame("keydown");
+        console.log("Desktop Started.");
+      });
+    }
 
-    setTimeout(function(){
-      $("body").removeClass("game-over");
-    }, 200);
-    restartGame("keydown");
+
+
   }
 }
 
@@ -76,6 +87,6 @@ function restartGame(action) {
   gamePattern = [];
   $("html").one(action, function(){
     nextSequence();
-    console.log("Started again.")
+    console.log("Started again.");
   });
 }
