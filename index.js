@@ -38,7 +38,7 @@ $(".btn").click(function(){
 });
 
 // https://www.mydevice.io/#compare-devices
-  if(window.matchMedia("(max-width: 504px)").matches){
+  if(window.matchMedia("(max-width: 720px)").matches){
     $("html").one("click", function(){
       nextSequence();
       console.log("Mobile Started.")
