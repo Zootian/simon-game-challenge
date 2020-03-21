@@ -10,7 +10,8 @@ function nextSequence() {
   var randomNumber = Math.floor(Math.random() * 4);
   var randomColor = btnColors[randomNumber];
   gamePattern.push(randomColor);
-  $("#" + randomColor).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
+  //$("#" + randomColor).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
+  $("#" + randomColor).animate({opacity:0}).animate({opacity:100});
   playSound(randomColor);
 }
 
