@@ -11,7 +11,9 @@ function nextSequence() {
   var randomColor = btnColors[randomNumber];
   gamePattern.push(randomColor);
   //$("#" + randomColor).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
-  $("#" + randomColor).animate({opacity:0}).animate({opacity:100});
+  $("#" + randomColor).css('opacity', '0').one("webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend", function() {
+	$(this).css('opacity', '1');
+});
   playSound(randomColor);
 }
 
